@@ -19,6 +19,7 @@ final public class FLCard: UIView {
     private let contentGuide = UILayoutGuide()
     private var chartView: CardableChart!
     private var style: FLCardStyle
+    public  var sdp_average_text: String?
     
     /// Whether to show the legend. Default is `true`.
     public var showLegend: Bool = true {
@@ -49,9 +50,10 @@ final public class FLCard: UIView {
     /// - Parameters:
     ///   - chart: The chart to display.
     ///   - style: The style of the card.
-    public init(chart: CardableChart, style: FLCardStyle = .rounded) {
+    public init(chart: CardableChart, style: FLCardStyle = .rounded, averageText: String?) {
         self.chartView = chart
         self.style = style
+        self.sdp_average_text = averageText
         super.init(frame: .zero)
         self.commonInit()
     }
@@ -163,7 +165,7 @@ final public class FLCard: UIView {
     }
     
     private func updateAverageLabel(with formattedAverage: String?) {
-      let attributedText = NSMutableAttributedString(string: Translation.averageAbbreviated,
+        let attributedText = NSMutableAttributedString(string: sdp_average_text ?? Translation.averageAbbreviated,
                                                        attributes: [.font: UIFont.preferredFont(for: .footnote, weight: .bold), .foregroundColor: FLColor.darkGray])
         attributedText.append(NSAttributedString(string: formattedAverage ?? "",
                                                  attributes: [.font: UIFont.preferredFont(for: .body, weight: .bold), .foregroundColor: FLColor.black]))
